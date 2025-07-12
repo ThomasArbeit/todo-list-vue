@@ -1,13 +1,15 @@
 <template>
-  <div class="flex flex-col gap-2">
+  <div class="flex flex-col gap-6 min-h-[100vh] px-4 py-4 max-w-[800px] mx-auto relative">
     <h1 class="text-2xl font-semibold">TodoList</h1>
     <TodoFilter @toggle="(e: FilterType) => handleFilterToggle(e)"/>
-    <TodoItem v-for="todo in filteredTodoList"
-    :key="todo.id"
-    :todo="todo"
-    @toggle="toggleTodo(todo)"
-    @delete="handleDeleteToto(todo)"
-    />
+    <div class="flex flex-col gap-2">
+      <TodoItem v-for="todo in filteredTodoList"
+      :key="todo.id"
+      :todo="todo"
+      @toggle="toggleTodo(todo)"
+      @delete="handleDeleteToto(todo)"
+      />
+    </div>
     <TodoInput @add="(e: string) => handleAdd(e)"/>
   </div>
 </template>

@@ -1,16 +1,16 @@
 <template>
-  <li class="flex align-items justify-between px-4 py-1 rounded bg-white">
+  <li class="flex align-items justify-between px-4 py-2 rounded-lg bg-white hover:bg-gray-100">
     <div class="flex items-center gap-2" :class="{'opacity-50 line-through' : todo.done}">
       <input type="checkbox" :checked="todo.done" @change="$emit('toggle')" class="cursor-pointer"/>
       <span class="cursor-pointer hover:opacity-70" @click.stop="$emit('toggle')">
         {{ todo.text }}
       </span>
     </div>
-    <button 
+    <!-- <button 
     class="bg-red-500 text-white hover:bg-red-600 cursor-pointer flex px-3 py-1 align-items justify-center rounded"
     @click="emit('delete')">
       X
-    </button>
+    </button> -->
   </li>
 </template>
 
