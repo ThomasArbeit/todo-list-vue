@@ -13,6 +13,7 @@ const emit = defineEmits(['add']);
 const input = ref('');
 
 function handleAdd () {
+  if(!input.value) return;
   emit('add', input.value);
   setTimeout(() => {
     input.value = ''

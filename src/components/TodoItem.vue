@@ -16,9 +16,9 @@
 
 <script setup lang="ts">
 export type TodoType = {
+  id: number,
   text: string,
   done: boolean,
-  id: number,
 }
 defineProps({
   todo: {
