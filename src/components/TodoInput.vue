@@ -10,14 +10,11 @@
 import { ref } from 'vue';
 const emit = defineEmits(['add']);
 
-const input = ref('')
-const isLoading = ref(false);
+const input = ref('');
 
 function handleAdd () {
-  isLoading.value = true;
   emit('add', input.value);
   setTimeout(() => {
-    isLoading.value = false;
     input.value = ''
   },50);
 }

@@ -1,22 +1,31 @@
 <template>
   <div class="flex flex-col gap-2">
     <h1 class="text-2xl font-semibold">TodoList</h1>
-    <TodoInput @add="(e: string) => handleAdd(e)"/>
-    <TodoItem v-for="todo in todoList"
+    <TodoFilter @toggle="(e: FilterType) => handleFilterToggle(e)"/>
+    <TodoItem v-for="todo in filteredTodoList"
     :key="todo.id"
     :todo="todo"
     @toggle="toggleTodo(todo)"
     @delete="handleDeleteToto(todo)"
     />
+    <TodoInput @add="(e: string) => handleAdd(e)"/>
   </div>
 </template>
 
 <script setup lang="ts">
-import { onBeforeMount, ref } from 'vue';
+import { computed, onBeforeMount, ref } from 'vue';
 import TodoItem, { type TodoType } from './TodoItem.vue';
 import TodoInput from './TodoInput.vue';
+import TodoFilter, { type FilterType } from './TodoFilter.vue';
 
-const todoList = ref<TodoType[]>([])
+const todoList = ref<TodoType[]>([]);
+const activeFilter = ref<FilterType['id']>(1);
+
+const filteredTodoList = computed(() => {
+  if (activeFilter.value === 1) return todoList.value;
+  if (activeFilter.value === 2) return todoList.value.filter((t:TodoType) => t.done === false);
+  if (activeFilter.value === 3) return todoList.value.filter((t:TodoType) => t.done === true);
+})
 
 onBeforeMount(() => {
   todoList.value = getTodoListFromLocalStorage();
@@ -57,6 +66,10 @@ function getTodoListFromLocalStorage () {
     console.error('Erreur lors du parsing des todos:', error);
     return [];
   }
+}
+
+function handleFilterToggle (filter: FilterType) {
+  activeFilter.value = filter.id;
 }
 
 </script>
